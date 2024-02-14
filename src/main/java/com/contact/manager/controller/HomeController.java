@@ -50,6 +50,4 @@ public class HomeController {
 		return  "signup";
 	}
 
-
-
 }
