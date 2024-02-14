@@ -1,0 +1,17 @@
+body{
+	background-color: cornsilk;
+}
+.background_style{
+	color: black;
+	background-color: antiquewhite;
+	width: 100%;
+	height: 93dvh;
+}
+.my-card{
+padding: 20px;
+	background: white;
+	margin-top: 20px;
+}
+ .register{
+	 color: green;
+ }
