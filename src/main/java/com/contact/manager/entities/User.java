@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "user_details")
@@ -19,11 +20,17 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int user_id;
+
+	@NotBlank(message = "Name field is required...")
 	private String user_name;
 	@Column(unique = true)
+	@NotBlank(message = "Email field is required...")
 	private String user_email;
 	@Column(unique = true)
+	@NotBlank(message = "Username field is required...")
 	private String user_username;
+	@NotBlank(message = "Password field is required...")
+
 	private String user_password;
 	private String user_image_url;
 	@Column(length = 500)

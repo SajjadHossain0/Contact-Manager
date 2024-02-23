@@ -1,80 +1,117 @@
 <!doctype html>
 <html lang="en" xmlns="http://www.thymleaf.org"
-th:replace="main::layout(~{::section})">
+      th:replace="main::layout(~{::section})">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title th:text="${title}">Main page</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${title}">Main page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
-	<section>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8 offset-md-2">
-				<div class="my-card">
-					<h1 class="register text-center">Register here !!</h1>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="my-card">
+                    <h1 class="register text-center">Register here !!</h1>
 
-					<form th:action="@{/do_register}" th:object="${user}" method="post" class="register-form">
-						<!-- This is Name feild -->
-						<div class="mb-3">
-							<label for="exampleInputName" class="form-label">Full Name</label>
-							<input name="user_name" type="text" class="form-control" placeholder="Enter your name..." aria-label="Name">
-						</div>
+                    <form th:action="@{/do_register}" th:object="${user}" method="post" class="register-form">
+                        <!-- This is Name feild -->
+                        <div class="mb-3">
+                            <label for="exampleInputName" class="form-label">Full Name</label>
+                            <input
+                                    th:classappend="${#fields.hasErrors('user_name') ? 'is-invalid' : ''}"
+                                    name="user_name" type="text" class="form-control is-invalid"
+                                    placeholder="Enter your name..." aria-label="Name">
+                            <div class="invalid-feedback"
+                                 th:each="e : ${#fields.errors('user_name')}"
+                                 th:text="${e}">
+                            </div>
+                        </div>
 
-						<!-- This is Username feild -->
-						<div class="mb-3">
-							<label for="exampleInputusername" class="form-label">Username</label>
-							<input name="user_username" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-						</div>
+                        <!-- This is Username feild -->
+                        <div class="mb-3">
+                            <label for="exampleInputusername" class="form-label">Username</label>
+                            <input th:classappend="${#fields.hasErrors('user_username') ? 'is-invalid' : ''}"
+                                   name="user_username" type="text" class="form-control" placeholder="Username"
+                                   aria-label="Username" aria-describedby="basic-addon1">
+                            <div class="invalid-feedback"
+                                 th:each="e : ${#fields.errors('user_username')}"
+                                 th:text="${e}">
+                            </div>
+                        </div>
 
-						<!-- This is Email feild -->
-						<div class="mb-3">
-							<label for="exampleInputEmail" class="form-label">Email address</label>
-							<input name="user_email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-							<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-						</div>
+                        <!-- This is Email feild -->
+                        <div class="mb-3">
+                            <label for="exampleInputEmail" class="form-label">Email address</label>
+                            <input th:classappend="${#fields.hasErrors('user_email') ? 'is-invalid' : ''}"
+                                   name="user_email" type="email" class="form-control" id="exampleInputEmail1"
+                                   aria-describedby="emailHelp">
+                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                            <div class="invalid-feedback"
+                                 th:each="e : ${#fields.errors('user_email')}"
+                                 th:text="${e}">
+                            </div>
+                        </div>
 
-						<!-- This is Password feild -->
-						<div class="mb-3">
-							<label for="exampleInputPassword" class="form-label">Password</label>
-							<input name="user_password" type="password" class="form-control" id="exampleInputPassword1">
-						</div>
+                        <!-- This is Password feild -->
+                        <div class="mb-3">
+                            <label for="exampleInputPassword" class="form-label">Password</label>
+                            <input th:classappend="${#fields.hasErrors('user_password') ? 'is-invalid' : ''}"
+                                   name="user_password" type="password" class="form-control" id="exampleInputPassword1">
+                            <div class="invalid-feedback"
+                                 th:each="e : ${#fields.errors('user_password')}"
+                                 th:text="${e}">
+                            </div>
+                        </div>
 
-						<!-- This is About feild -->
-						<div class="form-group mb-3">
-							<label for="exampleInputAbout" class="form-label">About Yourself</label>
-							<textarea name="user_about" placeholder="Enter about yourself not more than 500 words..." rows="4" class="form-control"></textarea>
-						</div>
+                        <!-- This is About feild -->
+                        <div class="form-group mb-3">
+                            <label for="exampleInputAbout" class="form-label">About Yourself</label>
+                            <textarea name="user_about" placeholder="Enter about yourself not more than 500 words..."
+                                      rows="4" class="form-control"></textarea>
+                        </div>
 
-						<!-- Submit and Reset buttons -->
-						<div class="container text-center">
-							<button type="submit" class="btn btn-primary">Submit</button>
-							<button type="reset" class="btn btn-primary">Reset</button>
-						</div>
+                        <!-- This is checkbox feild -->
+                        <div class="form-group mb-3 form-check form-switch">
+                            <input name="agreement" class="form-check-input" type="checkbox"
+                                   id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Accept terms and
+                                conditions</label>
+                        </div>
 
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
-	</section>
-	
+                        <div th:if="${session.message}" th:classappend="${session.message.type}"
+                             class="mb-2 alert text-center" role="alert">
+                            <p th:text="${session.message.content}"></p>
+                        </div>
 
-	
-	
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-		integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-		crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-		crossorigin="anonymous"></script>
+                        <!-- Submit and Reset buttons -->
+                        <div class="container text-center">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="reset" class="btn btn-primary">Reset</button>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
